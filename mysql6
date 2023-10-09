@@ -1,0 +1,599 @@
+akhils@AL151-AKHILS:~$ sudo mysql
+[sudo] password for akhils: 
+akhils is not in the sudoers file.  This incident will be reported.
+akhils@AL151-AKHILS:~$ su alokin
+Password: 
+alokin@AL151-AKHILS:/home/akhils$ sudo mysql
+[sudo] password for alokin: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.34-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create databse employee_db
+    -> use employee_db
+    -> ^C
+mysql> create databse employee_db;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databse employee_db' at line 1
+mysql> create database employee_db;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> use employee_dn;
+ERROR 1049 (42000): Unknown database 'employee_dn'
+mysql> use employee_db;
+Database changed
+mysql> create table employee_salary(Emp_id int primary key,First_name varchar(30) NOT NULL,Last_name(30) NOT NULL,Salary int not null,Joining_date date not null,Department varchar(30) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(30) NOT NULL,Salary int not null,Joining_date date not null,Department varchar(' at line 1
+mysql> create table employee_salary(Emp_id int primary key,First_name varchar(30) NOT NULL,Last_name varchar(30) NOT NULL,Salary int not null,Joining_date date not null,Department varchar(30) not null);
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> desc employee_salary;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Emp_id       | int         | NO   | PRI | NULL    |       |
+| First_name   | varchar(30) | NO   |     | NULL    |       |
+| Last_name    | varchar(30) | NO   |     | NULL    |       |
+| Salary       | int         | NO   |     | NULL    |       |
+| Joining_date | date        | NO   |     | NULL    |       |
+| Department   | varchar(30) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> create table reward table (employee_ref_id int not null,Date of reward date not null,amount int not null,foreign key(employee_ref_id) REFERENCES employee_salary(Emp_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(employee_ref_id int not null,Date of reward date not null,amount int not null,f' at line 1
+mysql> create table reward table (employee_ref_id int not null,Date_of_reward date not null,amount int not null,foreign key(employee_ref_id) REFERENCES employee_salary(Emp_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(employee_ref_id int not null,Date_of_reward date not null,amount int not null,f' at line 1
+mysql> create table reward_table (employee_ref_id int not null,Date_of_reward date not null,amount int not null,foreign key(employee_ref_id) REFERENCES employee_salary(Emp_id));
+Query OK, 0 rows affected (0.54 sec)
+
+mysql> desc reward_table;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| employee_ref_id | int  | NO   | MUL | NULL    |       |
+| Date_of_reward  | date | NO   |     | NULL    |       |
+| amount          | int  | NO   |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee_salary values(1,"Bob","Kinto",100000,"2019-01-20","Finance");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee_salary values(2,"Jerry","Kansxo",600000,"2019-01-15","IT");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_salary values(3,"Philip","Jose",890000,"2019-02-05","Banking");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee_salary values(4,"John","Abraham",200000,"2019-02-25","Insurance");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_salary values(4,"Micheal","Mathew",220000,"2019-02-28","Finance");
+ERROR 1062 (23000): Duplicate entry '4' for key 'employee_salary.PRIMARY'
+mysql> insert into employee_salary values(5,"Micheal","Mathew",220000,"2019-02-28","Finance");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_salary values(6,"Alex","cherketo",900000,"2019-05-10","IT");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee_salary values(7,"Yohan","Soso",1200000,"2019-06-20","Banking");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee_salary;
++--------+------------+-----------+---------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary  | Joining_date | Department |
++--------+------------+-----------+---------+--------------+------------+
+|      1 | Bob        | Kinto     |  100000 | 2019-01-20   | Finance    |
+|      2 | Jerry      | Kansxo    |  600000 | 2019-01-15   | IT         |
+|      3 | Philip     | Jose      |  890000 | 2019-02-05   | Banking    |
+|      4 | John       | Abraham   |  200000 | 2019-02-25   | Insurance  |
+|      5 | Micheal    | Mathew    |  220000 | 2019-02-28   | Finance    |
+|      6 | Alex       | cherketo  |  900000 | 2019-05-10   | IT         |
+|      7 | Yohan      | Soso      | 1200000 | 2019-06-20   | Banking    |
++--------+------------+-----------+---------+--------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into reward_table values(1,2019-05-11,1000);
+ERROR 1292 (22007): Incorrect date value: '2003' for column 'Date_of_reward' at row 1
+mysql> insert into reward_table values(1,"2019-05-11",1000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into reward_table values(2,"2019-02-15",5000);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into reward_table values(3,"2019-04-22",2000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into reward_table values(1,"2019-06-20",8000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from reward_table;
++-----------------+----------------+--------+
+| employee_ref_id | Date_of_reward | amount |
++-----------------+----------------+--------+
+|               1 | 2019-05-11     |   1000 |
+|               2 | 2019-02-15     |   5000 |
+|               3 | 2019-04-22     |   2000 |
+|               1 | 2019-06-20     |   8000 |
++-----------------+----------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee_salary;
++--------+------------+-----------+---------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary  | Joining_date | Department |
++--------+------------+-----------+---------+--------------+------------+
+|      1 | Bob        | Kinto     |  100000 | 2019-01-20   | Finance    |
+|      2 | Jerry      | Kansxo    |  600000 | 2019-01-15   | IT         |
+|      3 | Philip     | Jose      |  890000 | 2019-02-05   | Banking    |
+|      4 | John       | Abraham   |  200000 | 2019-02-25   | Insurance  |
+|      5 | Micheal    | Mathew    |  220000 | 2019-02-28   | Finance    |
+|      6 | Alex       | cherketo  |  900000 | 2019-05-10   | IT         |
+|      7 | Yohan      | Soso      | 1200000 | 2019-06-20   | Banking    |
++--------+------------+-----------+---------+--------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select First_Name AS Employee Name from employee salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name from employee salary' at line 1
+mysql> select First_name AS Employee Name from employee salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name from employee salary' at line 1
+mysql> select First_name AS Employee Name from employee_salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name from employee_salary' at line 1
+mysql> select First_name AS Employee Name from employee_salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name from employee_salary' at line 1
+mysql> select First_name AS Employee_Name from employee_salary;
++---------------+
+| Employee_Name |
++---------------+
+| Bob           |
+| Jerry         |
+| Philip        |
+| John          |
+| Micheal       |
+| Alex          |
+| Yohan         |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select lower(Last_name) from employee_salary;
++------------------+
+| lower(Last_name) |
++------------------+
+| kinto            |
+| kansxo           |
+| jose             |
+| abraham          |
+| mathew           |
+| cherketo         |
+| soso             |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> select department from employee_salary;
++------------+
+| department |
++------------+
+| Finance    |
+| IT         |
+| Banking    |
+| Insurance  |
+| Finance    |
+| IT         |
+| Banking    |
++------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT LEFT(FIRST_NAME, 4) AS FirstFourCharacters
+    -> FROM your_table_name;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT LEFT(First_name, 4) AS FourCharacters FROM employee_salary;
++----------------+
+| FourCharacters |
++----------------+
+| Bob            |
+| Jerr           |
+| Phil           |
+| John           |
+| Mich           |
+| Alex           |
+| Yoha           |
++----------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT CHARINDEX('h', 'John') AS PositionOfH;
+ERROR 1305 (42000): FUNCTION employee_db.CHARINDEX does not exist
+mysql> SELECT CHARINDEX('h', 'John') AS PositionOfH;
+ERROR 1305 (42000): FUNCTION employee_db.CHARINDEX does not exist
+mysql> SELECT charindex('h', 'John') AS PositionOfH;
+ERROR 1305 (42000): FUNCTION employee_db.charindex does not exist
+mysql> SELECT LOCATE('h', 'John') AS PositionOfH;
++-------------+
+| PositionOfH |
++-------------+
+|           3 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RTRIM(FIRST_NAME) AS TrimmedFirstName
+    -> FROM your_table_name;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT RTRIM(FIRST_NAME) AS TrimmedFirstName FROM employee_salary;
++------------------+
+| TrimmedFirstName |
++------------------+
+| Bob              |
+| Jerry            |
+| Philip           |
+| John             |
+| Micheal          |
+| Alex             |
+| Yohan            |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT CONCAT(LAST_NAME, '_', FIRST_NAME) AS Full_Name
+    -> FROM your_table_name;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT CONCAT(LAST_NAME, '_', FIRST_NAME) AS Full_Name FROM employee_salary;
++----------------+
+| Full_Name      |
++----------------+
+| Kinto_Bob      |
+| Kansxo_Jerry   |
+| Jose_Philip    |
+| Abraham_John   |
+| Mathew_Micheal |
+| cherketo_Alex  |
+| Soso_Yohan     |
++----------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT TRIM(FIRST_NAME) AS TrimmedFirstName FROM employee_salary;
++------------------+
+| TrimmedFirstName |
++------------------+
+| Bob              |
+| Jerry            |
+| Philip           |
+| John             |
+| Micheal          |
+| Alex             |
+| Yohan            |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT YEAR(Joining_date) AS Year,
+    ->        MONTH(Joining_date) AS Month,
+    ->        DAY(Joining_date) AS Day
+    -> FROM your_table_name;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT YEAR(Joining_date) AS Year,        MONTH(Joining_date) AS Month,
+      DAY(Joining_date) AS Day FROM employee_salary;
++------+-------+------+
+| Year | Month | Day  |
++------+-------+------+
+| 2019 |     1 |   20 |
+| 2019 |     1 |   15 |
+| 2019 |     2 |    5 |
+| 2019 |     2 |   25 |
+| 2019 |     2 |   28 |
+| 2019 |     5 |   10 |
+| 2019 |     6 |   20 |
++------+-------+------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * 
+    -> FROM your_table_name
+    -> ORDER BY FIRST_NAME ASC;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT * 
+    -> FROM your_table_name
+    -> ORDER BY FIRST_NAME ASC;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT *  FROM employee_salary ORDER BY FIRST_NAME ASC;
++--------+------------+-----------+---------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary  | Joining_date | Department |
++--------+------------+-----------+---------+--------------+------------+
+|      6 | Alex       | cherketo  |  900000 | 2019-05-10   | IT         |
+|      1 | Bob        | Kinto     |  100000 | 2019-01-20   | Finance    |
+|      2 | Jerry      | Kansxo    |  600000 | 2019-01-15   | IT         |
+|      4 | John       | Abraham   |  200000 | 2019-02-25   | Insurance  |
+|      5 | Micheal    | Mathew    |  220000 | 2019-02-28   | Finance    |
+|      3 | Philip     | Jose      |  890000 | 2019-02-05   | Banking    |
+|      7 | Yohan      | Soso      | 1200000 | 2019-06-20   | Banking    |
++--------+------------+-----------+---------+--------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> Get all employees in ascending order by first name and descending order by salary.
+[1]+  Stopped                 sudo mysql
+alokin@AL151-AKHILS:/home/akhils$ sudo mysql
+[sudo] password for alokin: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.34-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employee_db        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| student            |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use employee_db
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * 
+    -> FROM your_table_name
+    -> ORDER BY FIRST_NAME ASC, SALARY DESC;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT *  FROM employee_salary ORDER BY FIRST_NAME ASC, SALARY DESC;
++--------+------------+-----------+---------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary  | Joining_date | Department |
++--------+------------+-----------+---------+--------------+------------+
+|      6 | Alex       | cherketo  |  900000 | 2019-05-10   | IT         |
+|      1 | Bob        | Kinto     |  100000 | 2019-01-20   | Finance    |
+|      2 | Jerry      | Kansxo    |  600000 | 2019-01-15   | IT         |
+|      4 | John       | Abraham   |  200000 | 2019-02-25   | Insurance  |
+|      5 | Micheal    | Mathew    |  220000 | 2019-02-28   | Finance    |
+|      3 | Philip     | Jose      |  890000 | 2019-02-05   | Banking    |
+|      7 | Yohan      | Soso      | 1200000 | 2019-06-20   | Banking    |
++--------+------------+-----------+---------+--------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * 
+    -> FROM your_table_name
+    -> WHERE FIRST_NAME = 'Bob' OR FIRST_NAME = 'Alex';
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> SELECT *  FROM employee_salary WHERE FIRST_NAME = 'Bob' OR FIRST_NAME = '
+Alex';
++--------+------------+-----------+--------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary | Joining_date | Department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | Bob        | Kinto     | 100000 | 2019-01-20   | Finance    |
+|      6 | Alex       | cherketo  | 900000 | 2019-05-10   | IT         |
++--------+------------+-----------+--------+--------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM employee_salary WHERE FIRST_NAME = 'Bob';
++--------+------------+-----------+--------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary | Joining_date | Department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | Bob        | Kinto     | 100000 | 2019-01-20   | Finance    |
++--------+------------+-----------+--------+--------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee_salary where Last_name like 'k%';
++--------+------------+-----------+--------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary | Joining_date | Department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | Bob        | Kinto     | 100000 | 2019-01-20   | Finance    |
+|      2 | Jerry      | Kansxo    | 600000 | 2019-01-15   | IT         |
++--------+------------+-----------+--------+--------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee_salary where first_name like '%n';
++--------+------------+-----------+---------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary  | Joining_date | Department |
++--------+------------+-----------+---------+--------------+------------+
+|      4 | John       | Abraham   |  200000 | 2019-02-25   | Insurance  |
+|      7 | Yohan      | Soso      | 1200000 | 2019-06-20   | Banking    |
++--------+------------+-----------+---------+--------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee_salary where Salary>=2,00,000 AND salary<=8,00,000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',00,000 AND salary<=8,00,000' at line 1
+mysql> select * from employee_salary where Salary>=2,00,000 AND Salary<=8,00,000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',00,000 AND Salary<=8,00,000' at line 1
+mysql> SELECT * FROM employee_salary WHERE Salary >= 200000 AND Salary <= 800000;
++--------+------------+-----------+--------+--------------+------------+
+| Emp_id | First_name | Last_name | Salary | Joining_date | Department |
++--------+------------+-----------+--------+--------------+------------+
+|      2 | Jerry      | Kansxo    | 600000 | 2019-01-15   | IT         |
+|      4 | John       | Abraham   | 200000 | 2019-02-25   | Insurance  |
+|      5 | Micheal    | Mathew    | 220000 | 2019-02-28   | Finance    |
++--------+------------+-----------+--------+--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee_salary where joining_date="2019-03-31";
+Empty set (0.00 sec)
+
+mysql> select dateSELECT EnrollmentDateTime
+    -> FROM your_table_name;
+ERROR 1146 (42S02): Table 'employee_db.your_table_name' doesn't exist
+mysql> select dateSELECT Joining_date AS EnrollmentDateTime FROM employee_salary
+;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS EnrollmentDateTime FROM employee_salary' at line 1
+mysql> SELECT Joining_date AS EnrollmentDateTime FROM employee_salary;
++--------------------+
+| EnrollmentDateTime |
++--------------------+
+| 2019-01-20         |
+| 2019-01-15         |
+| 2019-02-05         |
+| 2019-02-25         |
+| 2019-02-28         |
+| 2019-05-10         |
+| 2019-06-20         |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT 
+    ->     e.Joining_date AS Employee_Joining_Date,
+    ->     r.date_reward AS Reward_Date,
+    ->     DATEDIFF(r.date_reward, e.Joining_date) AS Date_Difference
+    -> FROM 
+    ->     employees e
+    -> JOIN 
+    ->     rewards r
+    -> ON 
+    ->     e.employee_id = r.employee_id;
+ERROR 1146 (42S02): Table 'employee_db.employees' doesn't exist
+mysql> SELECT NOW() AS CurrentDateTime;
++---------------------+
+| CurrentDateTime     |
++---------------------+
+| 2023-10-06 17:27:46 |
++---------------------+
+1 row in set (0.02 sec)
+
+mysql> select  Joining_date.employee_salary AS joindate, date_reward.reward_table joining_date.employee_salary-date_reward AS difference from table employee_salary JOIN table reward_table ON employee_salary.Emp_id=reward_table.Employee_ref_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.employee_salary-date_reward AS difference from table employee_salary JOIN table' at line 1
+mysql> SELECT
+    ->     employee_salary.Joining_date AS joindate,
+    ->     reward_table.date_reward AS rewarddate,
+    ->     DATEDIFF(reward_table.date_reward, employee_salary.Joining_date) AS difference
+    -> FROM
+    ->     employee_salary
+    -> JOIN
+    ->     reward_table
+    -> ON
+    ->     employee_salary.Emp_id = reward_table.Employee_ref_id;
+ERROR 1054 (42S22): Unknown column 'reward_table.date_reward' in 'field list'
+mysql> 
+select employee_salary.join_date as d1,reward.date_of_reward as d2,datediff(reward.date_of_reward,employee_salary.join_date) from employee_salary inner join reward on employee_salary.emp_id=reward.employee_ref_id;
++------------+------------+-----------------------------------------------------------+
+| d1         | d2         | datediff(reward.date_of_reward,employee_salary.join_date) |
++------------+------------+-----------------------------------------------------------+
+| 2019-01-20 | 2019-05-11 |                                                       111 |
+| 2019-01-15 | 2019-02-15 |                                                        31 |
+| 2019-02-05 | 2019-04-22 |                                                        76 |
+| 2019-01-20 | 2019-06-20 |                                                       151 |
++------------+------------+-----------------------------------------------------------+
+
+
+
+
+select now() as current_date_and_time;
++-----------------------+
+| current_date_and_time |
++-----------------------+
+| 2023-10-06 17:30:12   |
++-----------------------+
+
+
+
+
+select department,sum(salary) as total_salary from employee_salary group by department;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| Finance    |       320000 |
+| IT         |      1500000 |
+| Banking    |      2090000 |
+| Insurance  |       200000 |
++------------+--------------+
+
+
+
+
+select department,sum(salary) as total_salary from employee_salary group by department order by sum(salary) desc;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| Banking    |      2090000 |
+| IT         |      1500000 |
+| Finance    |       320000 |
+| Insurance  |       200000 |
++------------+--------------+
+
+
+
+select department,count(emp_id) as no_of_employees,sum(salary) as total_salary from employee_salary group by department order by sum(salary) desc;
++------------+-----------------+--------------+
+| department | no_of_employees | total_salary |
++------------+-----------------+--------------+
+| Banking    |               2 |      2090000 |
+| IT         |               2 |      1500000 |
+| Finance    |               2 |       320000 |
+| Insurance  |               1 |       200000 |
++------------+-----------------+--------------+
+
+
+
+select department,avg(salary) as average_salary from employee_salary group by department order by avg(salary);
++------------+----------------+
+| department | average_salary |
++------------+----------------+
+| Finance    |    160000.0000 |
+| Insurance  |    200000.0000 |
+| IT         |    750000.0000 |
+| Banking    |   1045000.0000 |
++------------+----------------+
+
+
+
+select department,min(salary) as minimum_salary from employee_s
+alary group by department order by min(salary);
++------------+----------------+
+| department | minimum_salary |
++------------+----------------+
+| Finance    |         100000 |
+| Insurance  |         200000 |
+| IT         |         600000 |
+| Banking    |         890000 |
++------------+----------------+
+
+
+
+select count(emp_id),extract(year_month from join_date) from employee_salary group by extract( year_month from join_date);
++---------------+------------------------------------+
+| count(emp_id) | extract(year_month from join_date) |
++---------------+------------------------------------+
+|             2 |                             201901 |
+|             3 |                             201902 |
+|             1 |                             201905 |
+|             1 |                             201906 |
++---------------+------------------------------------+
+
+
+
+select department,sum(salary) as total_salary from employee_salary group by department having total_salary > 100000 order by total_salary desc;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| Banking    |      2090000 |
+| IT         |      1500000 |
+| Finance    |       320000 |
+| Insurance  |       200000 |
++------------+--------------+
+
+
+
+select employee_salary.emp_id as emp_id,employee_salary.first_name,reward.amount as amount from employee_salary inner join reward on employee_salary.emp_id = reward.employee_ref_id ;
++--------+------------+--------+
+| emp_id | first_name | amount |
++--------+------------+--------+
+|      1 | Bob        |   1000 |
+|      2 | Jerry      |   5000 |
+|      3 | Philip     |   2000 |
+|      1 | Bob        |   8000 |
++--------+------------+--------+
+
+
+
+
+
+
